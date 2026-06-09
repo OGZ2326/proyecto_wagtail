@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+<div class="card h-100 shadow-sm text-center">
+    <div class="card-body">
+        <i class="{{ value.icon_class }} fs-1 text-primary"></i>
+        <h5 class="card-title mt-3">{{ value.title }}</h5>
+        {% if value.description %}
+            <p class="card-text small">{{ value.description }}</p>
+        {% endif %}
+        <a href="{{ value.link_url }}" class="btn btn-outline-primary stretched-link" target="_blank" rel="noopener">Acceder</a>
+    </div>
+</div>

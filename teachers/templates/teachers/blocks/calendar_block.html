@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<div class="calendar-embed my-4">
+    {% if value.title %}
+        <h3>{{ value.title }}</h3>
+    {% endif %}
+    <iframe src="{{ value.embed_url }}" 
+            width="100%" 
+            height="{{ value.height }}" 
+            frameborder="0" 
+            scrolling="no"
+            allowfullscreen>
+    </iframe>
+</div>

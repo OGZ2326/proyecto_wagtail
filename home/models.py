@@ -280,13 +280,12 @@ class MetricsBlock(blocks.StructBlock):
 
 class HomePage(Page):
     """Página de inicio con todas las secciones editables"""
-    
-    # Hero / Carrusel
+     # Hero / Carrusel
     carousel_slides = StreamField(
         [('slide', HeroSlide())],
         blank=True,
         use_json_field=True,
-        help_text="Agrega los slides que quieras mostrar en el carrusel principal"
+        help_text="Agregá los slides que quieras mostrar en el carrusel principal"
     )
     
     # Tarjetas de acceso rápido
@@ -294,7 +293,7 @@ class HomePage(Page):
         [('card', CardBlock())],
         blank=True,
         use_json_field=True,
-        help_text="Agrega las tarjetas de acceso rápido"
+        help_text="Agregá las tarjetas de acceso rápido"
     )
     
     # Sección institucional
