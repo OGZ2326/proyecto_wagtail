@@ -1,0 +1,6 @@
+<div class="alert alert-info">
+    <strong>Consultas:</strong>
+    {% for email in value.emails %}
+        <a href="mailto:{{ email }}">{{ email }}</a>{% if not forloop.last %} / {% endif %}
+    {% endfor %}
+</div>

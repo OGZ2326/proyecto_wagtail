@@ -1,0 +1,16 @@
+<h2>{{ value.title }}</h2>
+<ol>
+    {% for step in value.steps %}
+        <li>
+            <strong>{{ step.step_title }}</strong>
+            {{ step.description|richtext }}
+            {% if step.links %}
+                <ul>
+                {% for link in step.links %}
+                    <li><a href="{{ link.url }}" target="_blank">{{ link.text }}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>
