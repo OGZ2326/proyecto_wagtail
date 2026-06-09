@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta_description %}
+Carreras de grado de la Facultad de Ingeniería de la UNMDP
+{% endblock %}
+
+{% block title %}Carreras - Facultad de Ingeniería UNMDP{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1>{{ page.title }}</h1>
+            {% if page.intro %}
+                <p class="lead">{{ page.intro }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        {% for career in careers %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if career.featured_image %}
+                        {% image career.featured_image fill-400x250 as img %}
+                        <img src="{{ img.url }}" class="card-img-top" alt="{{ career.title }}">
+                    {% else %}
+                        <div class="bg-secondary text-white text-center py-5">
+                            <i class="bi bi-mortarboard fs-1"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ career.title }}</h5>
+                        {% if career.degree %}
+                            <h6 class="card-subtitle mb-2 text-muted">{{ career.degree }}</h6>
+                        {% endif %}
+                        {% if career.duration %}
+                            <p class="card-text small text-muted">
+                                <i class="bi bi-clock"></i> {{ career.duration }}
+                            </p>
+                        {% endif %}
+                        <a href="{% pageurl career %}" class="btn btn-primary mt-2">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-info-circle"></i> No hay carreras cargadas en el sistema.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

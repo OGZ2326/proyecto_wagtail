@@ -1,0 +1,88 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="collegiate-body mb-5">
+    <h2 class="section-title">{{ value.title }}</h2>
+    
+    <!-- Cuerpo Docente -->
+    <h3 class="mt-4">Cuerpo Docente</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Titulares</h4>
+            <div class="list-group">
+                {% for authority in value.faculty_titular %}
+                    <div class="list-group-item">
+                        <strong>{{ authority.name }}</strong><br>
+                        <!-- <small>{{ authority.position }}</small> -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Suplentes</h4>
+            <div class="list-group">
+                {% for authority in value.faculty_suplente %}
+                    <div class="list-group-item">
+                        <strong>{{ authority.name }}</strong><br>
+                        <!-- <small>{{ authority.position }}</small> -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cuerpo Graduado -->
+    <h3 class="mt-4">Cuerpo Graduado</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Titulares</h4>
+            <div class="list-group">
+                {% for authority in value.graduate_titular %}
+                    <div class="list-group-item">
+                        <strong>{{ authority.name }}</strong><br>
+                        <!-- <small>{{ authority.position }}</small> -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Suplentes</h4>
+            <div class="list-group">
+                {% for authority in value.graduate_suplente %}
+                    <div class="list-group-item">
+                        <strong>{{ authority.name }}</strong><br>
+                        <!-- <small>{{ authority.position }}</small> -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cuerpo Estudiantil (opcional) -->
+    {% if value.student_titular or value.student_suplente %}
+        <h3 class="mt-4">Cuerpo Estudiantil</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Titulares</h4>
+                <div class="list-group">
+                    {% for authority in value.student_titular %}
+                        <div class="list-group-item">
+                            <strong>{{ authority.name }}</strong><br>
+                            <!-- <small>{{ authority.position }}</small> -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4>Suplentes</h4>
+                <div class="list-group">
+                    {% for authority in value.student_suplente %}
+                        <div class="list-group-item">
+                            <strong>{{ authority.name }}</strong><br>
+                            <!-- <small>{{ authority.position }}</small> -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

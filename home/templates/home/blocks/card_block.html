@@ -1,0 +1,46 @@
+{% load wagtailcore_tags %}
+
+{% if value.external_link %}
+    {% with target_url=value.external_link %}
+        <a href="{{ target_url }}" class="card-link-wrapper">
+            <div class="custom-card {{ value.gradient_class }} shadow-top">
+                <div class="card-logo">
+                    <i class="bi {{ value.icon }}"></i>
+                </div>
+                <h5>
+                    {{ value.title_line1 }}<br>{{ value.title_line2 }}
+                    <span class="card-arrow" aria-hidden="true">→</span>
+                </h5>
+            </div>
+        </a>
+    {% endwith %}
+{% elif value.link_page %}
+    {% with target_url=value.link_page.url %}
+        <a href="{{ target_url }}" class="card-link-wrapper">
+            <div class="custom-card {{ value.gradient_class }} shadow-top">
+                <div class="card-logo">
+                    <i class="bi {{ value.icon }}"></i>
+                </div>
+                <h5>
+                    {{ value.title_line1 }}<br>{{ value.title_line2 }}
+                    <span class="card-arrow" aria-hidden="true">→</span>
+                </h5>
+            </div>
+        </a>
+    {% endwith %}
+{% else %}
+    {# Sin enlace: mostrar tarjeta inactiva #}
+    <div class="custom-card {{ value.gradient_class }} shadow-top">
+        <div class="card-logo">
+            <i class="bi {{ value.icon }}"></i>
+        </div>
+        <h5>
+            {{ value.title_line1 }}<br>{{ value.title_line2 }}
+        </h5>
+        {% if request.user.is_staff %}
+            <div class="alert alert-warning small mt-2 mb-0" role="alert">
+                ⚠️ Esta tarjeta no tiene enlace configurado.
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

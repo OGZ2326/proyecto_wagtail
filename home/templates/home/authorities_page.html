@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }} - Facultad de Ingeniería UNMDP{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">{{ page.title }}</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 mb-4">
+            {{ page.intro|richtext }}
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for section in sections %}   <!-- ← cambiamos authorities por sections -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    {% if section.image %}
+                        {% image section.image fill-400x250 as img %}
+                        <img src="{{ img.url }}" class="card-img-top" alt="{{ section.title }}">
+                    {% else %}
+                        <div class="bg-light text-center py-5">
+                            <i class="bi bi-building fs-1 text-muted"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ section.title }}</h5>
+                        <p class="card-text small">{{ section.description|striptags|truncatewords:20 }}</p>
+                        <a href="{% pageurl section %}" class="btn btn-primary mt-2">Ver autoridades</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center">
+                <p>No hay secciones cargadas aún.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

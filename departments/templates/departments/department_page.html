@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container py-4">
+    <h1>{{ page.title }}</h1>
+    
+    {% if page.contacto_email or page.telefono %}
+        <div class="alert alert-info">
+            <strong>Contacto:</strong>
+            {% if page.contacto_email %} 📧 {{ page.contacto_email }}{% endif %}
+            {% if page.telefono %} 📞 {{ page.telefono }}{% endif %}
+        </div>
+    {% endif %}
+    
+    <!-- Contenido principal dinámico -->
+    {% for block in page.content %}
+        {% include_block block %}
+    {% endfor %}
+</div>
+{% endblock %}

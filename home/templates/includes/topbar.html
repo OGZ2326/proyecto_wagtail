@@ -1,0 +1,56 @@
+<div class="fi-topbar py-0">  
+    <div class="container-fluid d-flex justify-content-between align-items-center px-4">
+
+        <div class="d-flex gap-3 position-relative">
+            <a href="#" id="btn-contactanos"
+            class="bi bi-person text-light fw-semibold text-decoration-none">
+                CONTACTANOS
+            </a>
+            <!-- PANEL DESPLEGABLE -->
+            
+            <div id="contacto-info" class="fi-contacto-info">
+                <i class="bi bi-telephone-fill"></i>
+                <div class="fi-contacto-texto">
+                    <div>(0223) 481-0046 / 481-1262</div>
+                    <small>Conmutador central</small>
+                </div>
+            </div>
+
+            <span class="bi bi-clock text-light d-none d-md-inline">
+                Horarios: 8:00 a 19 hs.
+            </span>
+            <span class="bi bi-geo-alt text-light d-none d-lg-inline">
+                Av. Juan B. Justo 4302 esq. Ratery
+            </span>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="/admin/"
+                class="text-light fw-semibold text-decoration-none">
+                    <i class="bi bi-speedometer2 me-1"></i>
+                    Administración
+                </a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <span class="text-light small">
+                    {{ user.username }}
+                </span>
+
+                <form method="post" action="/admin/logout/" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-link text-light p-0 text-decoration-none">
+                        Salir
+                    </button>
+                </form>
+            {% else %}
+                <a href="/admin/login/" class="text-light text-decoration-none">
+                    Login
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>

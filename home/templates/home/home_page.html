@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block meta_description %}
+Sitio oficial de la Facultad de Ingeniería de la Universidad Nacional de Mar del Plata. Carreras, noticias, ingreso y actividades académicas.
+{% endblock %}
+
+{% block title %}Facultad de Ingeniería – Universidad Nacional de Mar del Plata{% endblock %}
+
+{% block content %}
+
+<!-- CARRUSEL / HERO -->
+<section class="fi-hero" aria-label="Carrusel principal">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" data-bs-touch="false" data-bs-pause="false">
+        <div class="carousel-inner">
+            {% for block in page.carousel_slides %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</section>
+<!-- TARJETAS DE ACCESO RÁPIDO -->
+
+<section id="cards-section" class="py-5">
+    <div class="container">            
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-0">
+            {% for block in page.cards %}
+                <div class="col">
+                    {% include_block block %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN INSTITUCIONAL -->
+{% for block in page.institutional_section %}
+    {% include_block block %}
+{% endfor %}
+
+<!-- SECCIÓN MÉTRICAS -->
+{% for block in page.metrics_section %}
+    {% include_block block %}
+{% endfor %}
+
+
+<!-- SECCIÓN ACTUALIDAD (últimas noticias) -->
+{% include "home/partials/actualidad.html" %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<div class="col-md-6 mb-3">
+    <a href="{{ value.file.url }}" class="btn 
+        {% if value.year == '2024' or value.year == '2025' %}btn-primary{% else %}btn-outline-primary{% endif %} 
+        w-100" target="_blank">
+        <i class="bi bi-file-pdf"></i> 
+        {% if value.title %}
+            {{ value.title }} ({{ value.year }})
+        {% else %}
+            Plan de Estudios {{ value.year }}
+        {% endif %}
+    </a>
+</div>

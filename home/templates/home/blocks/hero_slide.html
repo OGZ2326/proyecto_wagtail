@@ -1,0 +1,24 @@
+{% load wagtailimages_tags %}
+
+{% image value.image fill-1920x600 as img %}
+
+<div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+    <div class="fi-hero-slide" style="background-image: url('{{ img.url }}');">
+        <div class="fi-hero-content">
+            <div class="fi-hero-text">
+                <h2>
+                    {{ value.title|linebreaksbr }}<br>
+                    {% if value.subtitle %}
+                        <span>{{ value.subtitle }}</span>
+                    {% endif %}
+                </h2>
+                {% if value.button_text and value.button_link %}
+                    <a href="{{ value.button_link }}" class="fi-btn-hero">
+                        {{ value.button_text }}
+                    </a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

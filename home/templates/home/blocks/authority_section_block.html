@@ -1,0 +1,89 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="authority-section mb-5">
+    <h2 class="section-title">{{ value.title }}</h2>
+    {% if value.description %}
+        <div class="section-description mb-4">{{ value.description|richtext }}</div>
+    {% endif %}
+    
+    {% if value.display_style == 'cards' %}
+        <div class="row g-4 justify-content-center">
+            {% for item in value.authorities %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm text-center">
+                        {% if item.authority.photo %}
+                            {% image item.authority.photo fill-300x300 as img %}
+                            <img src="{{ img.url }}" class="rounded-circle mx-auto mt-3" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ item.authority.name }}">
+                        {% else %}
+                            <div class="bg-light rounded-circle mx-auto mt-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                <i class="bi bi-person fs-1 text-muted"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.authority.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ item.authority.position }}</h6>
+                            {% if item.authority.bio %}
+                                <div class="card-text small mt-2">{{ item.authority.bio|richtext }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+    {% elif value.display_style == 'list' %}
+        <div class="list-group">
+            {% for item in value.authorities %}
+                <div class="list-group-item text-center">
+                    <h5 class="mb-1">{{ item.authority.name }}</h5>
+                    <p class="text-muted mb-0">{{ item.authority.position }}</p>
+                    {% if item.authority.bio %}
+                        <div class="mt-2 small text-start">{{ item.authority.bio|richtext }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    
+    {% elif value.display_style == 'grid_cards' %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+            {% for item in value.authorities %}
+                <div class="col">
+                    <div class="card h-100 text-center shadow-sm">
+                        {% if item.authority.photo %}
+                            {% image item.authority.photo fill-200x200 as img %}
+                            <img src="{{ img.url }}" class="card-img-top rounded-circle mx-auto mt-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ item.authority.name }}">
+                        {% else %}
+                            <div class="bg-light rounded-circle mx-auto mt-3 d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                                <i class="bi bi-person fs-2 text-muted"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.authority.name }}</h5>
+                            <p class="card-text text-muted small">{{ item.authority.position }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+    {% elif value.display_style == 'horizontal_cards' %}
+        {% for item in value.authorities %}
+            <div class="row mb-4 align-items-center">
+                {% if item.authority.photo %}
+                    <div class="col-md-3">
+                        {% image item.authority.photo fill-200x200 as img %}
+                        <img src="{{ img.url }}" class="img-fluid rounded-circle" alt="{{ item.authority.name }}">
+                    </div>
+                {% endif %}
+                <div class="col-md-9">
+                    <h4>{{ item.authority.name }}</h4>
+                    <p class="text-muted">{{ item.authority.position }}</p>
+                    {% if item.authority.bio %}
+                        <div>{{ item.authority.bio|richtext }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

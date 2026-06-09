@@ -1,0 +1,77 @@
+{% load static %}
+{% load wagtailcore_tags %}
+<nav class="navbar navbar-expand-lg navbar-light fi-navbar">
+        <div class="container-fluid px-4 py-0">
+
+            <!-- Logo / Nombre -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                 <img src="{% static 'img/LOGO-COLOR-FI-nav.png' %}"
+                alt="Facultad de Ingeniería - UNMDP"
+                class="fi-logo">
+                <!-- <div class="d-flex flex-column lh-sm">
+                <strong>Facultad de Ingeniería</strong>
+                <span class="text-muted small">Universidad Nacional de Mar del Plata</span>
+                </div> -->
+            </a>
+
+            <!-- Botón mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Menú -->
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">INICIO</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/noticias/">NOTICIAS</a>
+                    </li>
+                   <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuInstitucional"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            INSTITUCIONAL
+                        </a>
+                        <ul class="dropdown-menu fi-dropdown" aria-labelledby="menuInstitucional">                                                      
+                            <li><a class="dropdown-item" href="{% slugurl 'autoridades' %}">Autoridades</a></li>
+                            <li><a class="dropdown-item" href="{% slugurl 'departamentos' %}">Departamentos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% slugurl 'carreras' %}">Carreras de Grado</a></li>
+                            <li><a class="dropdown-item" href="{% slugurl 'posgrados' %}">Carreras de Posgrado</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% slugurl 'investigacion' %}">Institutos y Grupos de Investigación</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">DOCENTES</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">SECRETARÍAS</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="">ESTUDIANTES</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">GRADUADOS</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">CONTACTO</a>
+                    </li>
+                        <li class="nav-item ms-lg-3">
+                        <a href="#"
+                        class="btn-webmail nav-link d-flex align-items-center gap-1">
+                            <i class="bi bi-envelope"></i>
+                            <span>WEBMAIL</span>
+                        </a>
+                    </li>                    
+                </ul>
+            </div>
+        </div>        
+    </nav>

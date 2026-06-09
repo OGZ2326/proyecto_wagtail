@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta_description %}
+{{ page.search_description|default:page.title }}
+{% endblock %}
+
+{% block title %}{{ page.title }} - Facultad de Ingeniería UNMDP{% endblock %}
+
+{% block content %}
+
+<!-- Cabecera -->
+<div class="bg-primary text-white py-5" style="background-color: #33cc99 !important;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold">{{ page.title }}</h1>
+                {% if page.degree %}
+                    <p class="lead mt-2">{{ page.degree }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            
+            <!-- Imagen destacada -->
+            {% if page.featured_image %}
+                {% image page.featured_image width-800 as img %}
+                <img src="{{ img.url }}" class="img-fluid rounded shadow-sm mb-4" alt="{{ page.title }}">
+            {% endif %}
+            
+            <!-- Contenido principal -->
+            {% for block in page.body %}
+                {% if block.block_type == 'heading' %}
+                    <h2 class="mt-4">{{ block.value }}</h2>
+                {% elif block.block_type == 'paragraph' %}
+                    <div class="mb-4">{{ block.value }}</div>
+                {% elif block.block_type == 'image' %}
+                    {% image block.value width-700 as img %}
+                    <figure class="my-4 text-center">
+                        <img src="{{ img.url }}" class="img-fluid rounded shadow-sm" alt="">
+                    </figure>
+                {% elif block.block_type == 'list' %}
+                    <ul class="mb-4">
+                        {% for item in block.value %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- Planes de Estudio -->
+            {% if page.has_syllabus %}
+                <div class="card bg-light mt-5">
+                    <div class="card-body">
+                        <h3 class="card-title">Planes de Estudio</h3>
+                        <div class="row">
+                            {% for block in page.syllabus_plans %}
+                                {% include_block block %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            
+        </div>  <!-- end col-lg-8 -->
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white" style="background-color: #33cc99 !important;">
+                    <h5 class="mb-0">Información útil</h5>
+                </div>
+                <div class="card-body">
+                    {% if page.career_code %}
+                        <p><strong><i class="bi bi-hash"></i> Código:</strong> {{ page.career_code }}</p>
+                    {% endif %}
+                    {% if page.duration %}
+                        <p><strong><i class="bi bi-clock"></i> Duración:</strong> {{ page.duration }}</p>
+                    {% endif %}
+                    {% if page.degree %}
+                        <p><strong><i class="bi bi-award"></i> Título:</strong> {{ page.degree }}</p>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <h6>Enlaces</h6>
+                    <div class="list-group list-group-flush">
+                        {% if page.department_page %}
+                            <a href="{{ page.department_page.url }}" class="list-group-item list-group-item-action" target="_blank">
+                                <i class="bi bi-building"></i> Departamento
+                            </a>
+                        {% endif %}
+                        {% if page.consultation_page %}
+                            <a href="{{ page.consultation_page.url }}" class="list-group-item list-group-item-action" target="_blank">
+                                <i class="bi bi-question-circle"></i> Consultas
+                            </a>
+                        {% endif %}
+                        {% if page.professional_profile_page %}
+                            <a href="{{ page.professional_profile_page.url }}" class="list-group-item list-group-item-action" target="_blank">
+                                <i class="bi bi-briefcase"></i> Incumbencias Profesionales
+                            </a>
+                        {% endif %}
+                        {% if page.graduate_profile_page %}
+                            <a href="{{ page.graduate_profile_page.url }}" class="list-group-item list-group-item-action" target="_blank">
+                                <i class="bi bi-person-badge"></i> Perfil del Egresado
+                            </a>
+                        {% endif %}
+                        {% if page.basic_contents_page %}
+                            <a href="{{ page.basic_contents_page.url }}" class="list-group-item list-group-item-action" target="_blank">
+                                <i class="bi bi-book"></i> Contenidos Básicos
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>  <!-- end col-lg-4 -->
+    </div>  <!-- end row -->
+    
+    <!-- Sección de asignaturas (NUEVA VERSIÓN con career_subjects) -->
+    {% if career_subjects %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2>Asignaturas de {{ page.title }}</h2>
+            <div class="list-group">
+                {% for relation in career_subjects %}
+                    {% with subject=relation.subject %}
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <strong>{{ subject.name }}</strong>
+                                {% if subject.code %}
+                                    <span class="badge bg-secondary">Cód: {{ subject.code }}</span>
+                                {% endif %}
+                            </div>
+                            {% if relation.year %}
+                                <span class="badge bg-info mt-1">Año {{ relation.year }}</span>
+                            {% endif %}
+                            {% if subject.workload %}
+                                <p class="mb-1 mt-2"><small>{{ subject.workload }}</small></p>
+                            {% endif %}
+                            {% if subject.syllabus_doc %}
+                                <a href="{{ subject.syllabus_doc.url }}" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                                    <i class="bi bi-file-pdf"></i> Programa analítico (PDF)
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Botón volver -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <a href="{% pageurl page.get_parent %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a carreras
+            </a>
+        </div>
+    </div>
+</div>  <!-- end container -->
+
+{% endblock %}

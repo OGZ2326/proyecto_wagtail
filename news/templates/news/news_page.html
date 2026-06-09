@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta_description %}
+{{ page.search_description|default:page.title }}
+{% endblock %}
+
+{% block title %}{{ page.title }} - Facultad de Ingeniería UNMDP{% endblock %}
+
+{% block content %}
+<article>
+    <!-- Cabecera de la noticia -->
+    <div class="bg-primary text-white py-5" style="background-color: #33cc99 !important;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <small class="text-uppercase">
+                        <i class="bi bi-calendar3"></i> {{ page.date|date:"d/m/Y" }}
+                    </small>
+                    <h1 class="display-5 fw-bold mt-2">{{ page.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Imagen destacada -->
+    {% if page.featured_image %}
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    {% image page.featured_image width-1200 as img %}
+                    <img src="{{ img.url }}" class="img-fluid rounded shadow-sm" alt="{{ page.title }}">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Contenido -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% for block in page.body %}
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="mt-4">{{ block.value }}</h2>
+                    
+                    {% elif block.block_type == 'paragraph' %}
+                        <div class="mb-4">
+                            {{ block.value }}
+                        </div>
+                    
+                    {% elif block.block_type == 'image' %}
+                        <figure class="my-4 text-center">
+                            {% image block.value width-800 as img %}
+                            <img src="{{ img.url }}" class="img-fluid rounded shadow-sm" alt="">
+                        </figure>
+                    
+                    {% elif block.block_type == 'quote' %}
+                        <div class="bg-light p-4 my-4 border-start border-4" style="border-color: #33cc99 !important;">
+                            <blockquote class="blockquote mb-0">
+                                <p class="fs-4">"{{ block.value.quote }}"</p>
+                                {% if block.value.author %}
+                                    <footer class="blockquote-footer mt-2">{{ block.value.author }}</footer>
+                                {% endif %}
+                            </blockquote>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para volver -->
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <a href="{% pageurl page.get_parent %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver a noticias
+                </a>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

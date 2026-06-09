@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+<div class="card mb-4">
+    {% if block.value.group_title %}
+        <div class="card-header">{{ block.value.group_title }}</div>
+    {% endif %}
+    <ul class="list-group list-group-flush">
+        {% for link in block.value.links %}
+            <li class="list-group-item">
+                <i class="{{ link.icon_class }} me-2"></i>
+                <a href="{{ link.link_url }}" target="_blank" rel="noopener">{{ link.link_text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

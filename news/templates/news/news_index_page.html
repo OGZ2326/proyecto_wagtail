@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta_description %}
+Noticias y novedades de la Facultad de Ingeniería de la UNMDP
+{% endblock %}
+
+{% block title %}Noticias - Facultad de Ingeniería UNMDP{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1>{{ page.title }}</h1>
+            {% if page.intro %}
+                <p class="lead">{{ page.intro }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        {% for news in news_pages %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if news.featured_image %}
+                        {% image news.featured_image fill-400x250 as img %}
+                        <img src="{{ img.url }}" class="card-img-top" alt="{{ news.title }}">
+                    {% else %}
+                        <div class="bg-secondary text-white text-center py-5">
+                            <i class="bi bi-newspaper fs-1"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% pageurl news %}" class="text-decoration-none text-dark">
+                                {{ news.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text text-muted small">
+                            <i class="bi bi-calendar3"></i> {{ news.date|date:"d/m/Y" }}
+                        </p>
+                        <p class="card-text">
+                            {{ news.search_description|default:news.body|striptags|truncatewords:20 }}
+                        </p>
+                        <a href="{% pageurl news %}" class="btn btn-outline-primary btn-sm">
+                            Leer más <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-info-circle"></i> No hay noticias disponibles.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

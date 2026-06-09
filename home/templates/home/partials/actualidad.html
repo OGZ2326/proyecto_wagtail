@@ -1,0 +1,59 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="fi-actualidad py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2>Actualidad</h2>
+                <p class="text-muted">Noticias y novedades de la Facultad</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            {% for news in latest_news %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        {% if news.featured_image %}
+                            {% image news.featured_image fill-400x250 as img %}
+                            <img src="{{ img.url }}" class="card-img-top" alt="{{ news.title }}">
+                        {% else %}
+                            <div class="bg-secondary text-white text-center py-5">
+                                <i class="bi bi-newspaper fs-1"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% pageurl news %}" class="text-decoration-none text-dark">
+                                    {{ news.title }}
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted small">
+                                <i class="bi bi-calendar3"></i> {{ news.date|date:"d/m/Y" }}
+                            </p>
+                            <p class="card-text">
+                                {{ news.search_description|default:news.body|striptags|truncatewords:15 }}
+                            </p>
+                            <a href="{% pageurl news %}" class="btn btn-outline-primary btn-sm">
+                                Leer más <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-info-circle"></i> No hay noticias disponibles.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <a href="{{ news_index_url }}" class="btn btn-primary">
+                    Ver todas las noticias <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

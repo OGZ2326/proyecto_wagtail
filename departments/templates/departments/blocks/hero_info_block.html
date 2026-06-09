@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="row mb-5">
+    <div class="col-md-7">
+        {% if block.value.title %}
+            <h2>{{ block.value.title }}</h2>
+        {% endif %}
+        {{ block.value.description|richtext }}
+    </div>
+    {% if block.value.image %}
+        <div class="col-md-5">
+            {% image block.value.image fill-400x300 class="img-fluid rounded shadow" %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}{{ page.title }} - Asignatura{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% pageurl page.get_parent.get_parent %}">Carreras</a></li>
+            <li class="breadcrumb-item"><a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a></li>
+            <li class="breadcrumb-item active">{{ page.title }}</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">{{ page.title }}</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <dl class="row">
+                {% if page.code %}
+                    <dt class="col-sm-3">Código</dt>
+                    <dd class="col-sm-9">{{ page.code }}</dd>
+                {% endif %}
+                {% if page.year %}
+                    <dt class="col-sm-3">Año</dt>
+                    <dd class="col-sm-9">{{ page.year }}</dd>
+                {% endif %}
+                {% if page.workload %}
+                    <dt class="col-sm-3">Carga horaria</dt>
+                    <dd class="col-sm-9">{{ page.workload }}</dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+
+    {% if page.syllabus_doc %}
+        <div class="alert alert-info">
+            <i class="bi bi-file-pdf"></i>
+            <a href="{{ page.syllabus_doc.url }}" target="_blank" class="alert-link">
+                Descargar programa analítico (PDF)
+            </a>
+        </div>
+    {% endif %}
+
+    <p><a href="{% pageurl page.get_parent %}" class="btn btn-outline-secondary">← Volver a {{ page.get_parent.title }}</a></p>
+</div>
+{% endblock %}

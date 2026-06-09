@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ page.title }}</h1>
+        {{ page.intro|richtext }}
+
+        <div class="row">
+            {% for department in departments %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ department.title }}</h5>
+                            <p class="card-text">{{ department.search_description|truncatewords:20 }}</p>
+                            <a href="{% pageurl department %}" class="btn btn-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay departamentos creados aún.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

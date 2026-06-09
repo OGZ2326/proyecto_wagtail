@@ -1,0 +1,32 @@
+<section class="fi-metricas py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <div class="col-md-6 d-flex gap-5 justify-content-md-start justify-content-center">
+                <div class="metrica-item text-center">
+                    <div class="metrica-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                    <h3 class="metrica-num">{{ value.metric1_number }}</h3>
+                    <p class="metrica-label">{{ value.metric1_label }}</p>
+                </div>
+                
+                <div class="metrica-item text-center">
+                    <div class="metrica-icon">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </div>
+                    <h3 class="metrica-num">{{ value.metric2_number }}</h3>
+                    <p class="metrica-label">{{ value.metric2_label }}</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mt-4 mt-md-0">
+                <p class="metricas-text">{{ value.description }}</p>
+                {% if value.button_text and value.button_link %}
+                    <a href="{{ value.button_link }}" class="btn-metrica">{{ value.button_text }} <span>➜</span></a>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+</section>
