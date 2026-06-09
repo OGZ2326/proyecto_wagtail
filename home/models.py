@@ -324,6 +324,8 @@ class HomePage(Page):
         'news.NewsIndexPage',
         'courses.CareerIndexPage',
         'departments.DepartmentsIndexPage',
+        'teachers.TeachersPage',
+        'prospective.ProspectivePage',
         # ... otros índices que tengas
     ]
     # Especificamos el template a usar
