@@ -1,38 +1,35 @@
 {% load wagtailcore_tags %}
 
-{% if value.external_link %}
-    {% with target_url=value.external_link %}
-        <a href="{{ target_url }}" class="card-link-wrapper">
-            <div class="custom-card {{ value.gradient_class }} shadow-top">
-                <div class="card-logo">
+{# Función para renderizar el icono según la familia seleccionada #}
+{% if value.external_link or value.link_page %}
+    <a href="{% if value.external_link %}{{ value.external_link }}{% elif value.link_page %}{% pageurl value.link_page %}{% endif %}" class="card-link-wrapper">
+        <div class="custom-card {{ value.gradient_class }} shadow-top">
+            <div class="card-logo">
+                {# Icono según familia #}
+                {% if value.icon_family == 'bi' %}
                     <i class="bi {{ value.icon }}"></i>
-                </div>
-                <h5>
-                    {{ value.title_line1 }}<br>{{ value.title_line2 }}
-                    <span class="card-arrow" aria-hidden="true">→</span>
-                </h5>
-            </div>
-        </a>
-    {% endwith %}
-{% elif value.link_page %}
-    {% with target_url=value.link_page.url %}
-        <a href="{{ target_url }}" class="card-link-wrapper">
-            <div class="custom-card {{ value.gradient_class }} shadow-top">
-                <div class="card-logo">
+                {% elif value.icon_family == 'fas' or value.icon_family == 'far' or value.icon_family == 'fab' %}
+                    <i class="{{ value.icon_family }} {{ value.icon }}"></i>
+                {% else %}
                     <i class="bi {{ value.icon }}"></i>
-                </div>
-                <h5>
-                    {{ value.title_line1 }}<br>{{ value.title_line2 }}
-                    <span class="card-arrow" aria-hidden="true">→</span>
-                </h5>
+                {% endif %}
             </div>
-        </a>
-    {% endwith %}
+            <h5>
+                {{ value.title_line1 }}<br>{{ value.title_line2 }}
+                <span class="card-arrow" aria-hidden="true">→</span>
+            </h5>
+        </div>
+    </a>
 {% else %}
-    {# Sin enlace: mostrar tarjeta inactiva #}
     <div class="custom-card {{ value.gradient_class }} shadow-top">
         <div class="card-logo">
-            <i class="bi {{ value.icon }}"></i>
+            {% if value.icon_family == 'bi' %}
+                <i class="bi {{ value.icon }}"></i>
+            {% elif value.icon_family == 'fas' or value.icon_family == 'far' or value.icon_family == 'fab' %}
+                <i class="{{ value.icon_family }} {{ value.icon }}"></i>
+            {% else %}
+                <i class="bi {{ value.icon }}"></i>
+            {% endif %}
         </div>
         <h5>
             {{ value.title_line1 }}<br>{{ value.title_line2 }}

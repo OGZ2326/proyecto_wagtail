@@ -205,30 +205,26 @@ class HeroSlide(blocks.StructBlock):
 # blocks.py
 
 class CardBlock(blocks.StructBlock):
-    """Tarjeta de acceso rápido - toda la tarjeta es cliqueable"""
+    icon_family = blocks.ChoiceBlock(
+        choices=[
+            ('bi', 'Bootstrap Icons'),
+            ('fas', 'Font Awesome Solid'),
+            ('far', 'Font Awesome Regular'),
+            ('fab', 'Font Awesome Brands'),
+        ],
+        default='bi',
+        required=True,
+        label="Familia de iconos"
+    )
     icon = blocks.CharBlock(
         required=True,
-        label="Icono (Bootstrap icon)",
-        help_text="Ejemplo: bi-pencil-square, bi-mortarboard, etc."
+        label="Nombre del icono",
+        help_text="Ej: bi-mortarboard (Bootstrap) o fa-graduation-cap (Font Awesome)"
     )
-    title_line1 = blocks.CharBlock(
-        required=True,
-        label="Primera línea del título",
-        max_length=50
-    )
-    title_line2 = blocks.CharBlock(
-        required=True,
-        label="Segunda línea del título",
-        max_length=50
-    )
-    link_page = PageChooserBlock(
-        required=False,
-        label="Página interna de destino"
-    )
-    external_link = blocks.URLBlock(
-        required=False,
-        label="Enlace externo"
-    )
+    title_line1 = blocks.CharBlock(required=True, label="Primera línea del título", max_length=50)
+    title_line2 = blocks.CharBlock(required=True, label="Segunda línea del título", max_length=50)
+    link_page = PageChooserBlock(required=False, label="Página interna de destino")
+    external_link = blocks.URLBlock(required=False, label="Enlace externo")
     gradient_class = blocks.ChoiceBlock(
         choices=[
             ('custom-grad-1', 'Gradiente 1'),
@@ -241,12 +237,6 @@ class CardBlock(blocks.StructBlock):
         required=True,
         label="Color de la tarjeta"
     )
-
-    class Meta:
-        icon = "card"
-        label = "Tarjeta de acceso rápido"
-        template = "home/blocks/card_block.html"
-
 class InstitutionalBlock(blocks.StructBlock):
     """Bloque para la sección institucional"""
     title = blocks.CharBlock(required=True, label="Título de la sección", default="Institucional")
