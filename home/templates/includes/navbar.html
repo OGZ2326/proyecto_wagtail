@@ -45,8 +45,19 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% slugurl 'docentes' %}">DOCENTES</a>
+                   <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuDocentes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            DOCENTES
+                        </a>
+                        <ul class="dropdown-menu fi-dropdown" aria-labelledby="menuDocentes">
+                            <li><a class="dropdown-item" href="{% slugurl 'docentes' %}">Página principal de Docentes</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% slugurl 'concursos' %}">Concursos</a></li>
+                            <li><a class="dropdown-item" href="https://portalsiu.mdp.edu.ar/autogestion/">Siu Guarani</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="">Aulas</a></li>
+                            <li><a class="dropdown-item" href="">Bedelía</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">SECRETARÍAS</a>
