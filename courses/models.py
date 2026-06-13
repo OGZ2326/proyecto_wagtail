@@ -173,12 +173,10 @@ class CareerPage(Page):
         return context
 
 class CareerIndexPage(Page):
-    """Página que lista todas las carreras"""
-    
     intro = models.TextField(blank=True, verbose_name="Texto introductorio")
-        # RESTRICCIONES DE JERARQUÍA
-    parent_page_types = ['home.HomePage']   # Puede estar bajo HomePage
-    subpage_types = ['courses.CareerPage']  # Solo puede contener carreras
+    
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['courses.CareerPage']
     
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
@@ -186,12 +184,13 @@ class CareerIndexPage(Page):
     
     def get_context(self, request):
         context = super().get_context(request)
-        context['careers'] = CareerPage.objects.live().order_by('order', 'title')
+        # Obtiene solo las CareerPage hijas de esta página, ordenadas por order y título
+        context['careers'] = CareerPage.objects.live().child_of(self).order_by('order', 'title')
         return context
     
     class Meta:
-        verbose_name = "Página de carreras"
-        verbose_name_plural = "Páginas de carreras"
+        verbose_name = "Índice de carreras"
+        verbose_name_plural = "Índices de carreras"
 
 @register_snippet
 

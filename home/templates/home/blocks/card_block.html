@@ -1,18 +1,10 @@
 {% load wagtailcore_tags %}
 
-{# Función para renderizar el icono según la familia seleccionada #}
 {% if value.external_link or value.link_page %}
     <a href="{% if value.external_link %}{{ value.external_link }}{% elif value.link_page %}{% pageurl value.link_page %}{% endif %}" class="card-link-wrapper">
-        <div class="custom-card {{ value.gradient_class }} shadow-top">
+        <div class="custom-card {{ value.gradient_class }}">
             <div class="card-logo">
-                {# Icono según familia #}
-                {% if value.icon_family == 'bi' %}
-                    <i class="bi {{ value.icon }}"></i>
-                {% elif value.icon_family == 'fas' or value.icon_family == 'far' or value.icon_family == 'fab' %}
-                    <i class="{{ value.icon_family }} {{ value.icon }}"></i>
-                {% else %}
-                    <i class="bi {{ value.icon }}"></i>
-                {% endif %}
+                <i class="bi {{ value.icon }}"></i>
             </div>
             <h5>
                 {{ value.title_line1 }}<br>{{ value.title_line2 }}
@@ -21,15 +13,9 @@
         </div>
     </a>
 {% else %}
-    <div class="custom-card {{ value.gradient_class }} shadow-top">
+    <div class="custom-card {{ value.gradient_class }}">
         <div class="card-logo">
-            {% if value.icon_family == 'bi' %}
-                <i class="bi {{ value.icon }}"></i>
-            {% elif value.icon_family == 'fas' or value.icon_family == 'far' or value.icon_family == 'fab' %}
-                <i class="{{ value.icon_family }} {{ value.icon }}"></i>
-            {% else %}
-                <i class="bi {{ value.icon }}"></i>
-            {% endif %}
+            <i class="bi {{ value.icon }}"></i>
         </div>
         <h5>
             {{ value.title_line1 }}<br>{{ value.title_line2 }}
