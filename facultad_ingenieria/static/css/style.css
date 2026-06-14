@@ -1,14 +1,16 @@
-/* ===============================
-   VARIABLES INSTITUCIONALES R51 G204 B153
-   --color-1: rgb(51 204 76);#33CC4C
---color-2: rgb(51 204 153);#33CC99
---color-3: rgb(51 178 204);#33B2CC
-================================ */
-
 :root {
-    --fi-verde-oscuro: #0b4f4a;
-    /* --fi-verde: #0f766e; */
-    --fi-verde:#33CC99;
+    /* ==============================================
+       PALETA INSTITUCIONAL BASADA EN PANTONE 326 C
+       Color base: #33CC99 (rgb 51, 204, 153)
+       Misma tonalidad (160° en HSL), diferentes niveles de luminosidad
+    ============================================== */
+    
+    --fi-verde-base: #33CC99;
+    --fi-verde-claro: #8AE0C2;
+    --fi-verde-oscuro: #1A8C6E;
+    --fi-verde-muy-oscuro: #0D4A3A;
+    --fi-verde-extremo: #062A20;   /* 80% más oscuro - para fondos muy profundos */
+    --fi-verde-texto: #07382C;
     --fi-gris: #6c757d;
 }
 html, body {
@@ -18,21 +20,24 @@ html, body {
 /* ===============================
    TOPBAR 
 ================================ */
-.fi-topbar {
-    background-color: var(--fi-verde-oscuro);
-    font-size: 0.85rem;
-}
-.fi-topbar {
-    position: relative;
-    z-index: 1050;
-}
-.fi-topbar a {
+/* Enlaces en el hero y topbar (sobre fondos oscuros) */
+.fi-topbar a,
+.fi-hero-text a {
     color: #ffffff;
     text-decoration: none;
 }
 
-.fi-topbar a:hover {
+.fi-topbar a:hover,
+.fi-hero-text a:hover {
     text-decoration: underline;
+    opacity: 0.9;
+}
+
+.fi-topbar {
+    background-color: var(--fi-verde-muy-oscuro);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1050;
 }
 
 .fi-contacto-info {
@@ -107,76 +112,118 @@ html, body {
     position: sticky;
     top: 0;
     z-index: 1030;
-
-    background-color: rgba(255, 255, 255, 0.55); /* 👈 transparencia real */
-    backdrop-filter: blur(10px);                  /* 👈 efecto vidrio */
-    /* -webkit-backdrop-filter: blur(6px);  */
-    transition:
-        box-shadow 0.3s ease,
-        background-color 0.3s ease,
-        backdrop-filter 0.3s ease,
-        padding 0.3s ease;
-
+    
+    /* Fondo con efecto vidrio más institucional */
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease;
+    
     padding-top: 0.4rem;
     padding-bottom: 0.4rem;
-
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-     
+    
+    border-bottom: 1px solid rgba(51, 204, 153, 0.15);  /* borde sutil con el color institucional */
 }
 
-
+/* Estado cuando se scrollea */
 .fi-navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.55); /* casi sólida */
+    background-color: rgba(255, 255, 255, 0.98);  /* casi sólido */
     backdrop-filter: blur(4px);
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    border-bottom-color: rgba(51, 204, 153, 0.25);  /* borde más visible al scrollear */
 }
 
-.fi-navbar {
-    border-bottom: 1px solid #e5e5e5;
+/* Links de navegación */
+.fi-navbar .nav-link {
+    font-weight: 500;
+    color: #1a2a2a;  /* gris muy oscuro con un toque verdoso */
+    margin-left: 0.5rem;
+    transition: color 0.2s ease;
+    position: relative;
 }
-.fi-navbar .navbar-nav {
-    align-items: center;
+
+/* Hover de los links */
+.fi-navbar .nav-link:hover {
+    color: var(--fi-verde-base);  /* #33CC99 */
 }
-@media (max-width: 991px) {
-    .fi-navbar .navbar-nav {
-        align-items: flex-start;
-    }
+
+/* Link activo (página actual) */
+.fi-navbar .nav-link.active {
+    color: var(--fi-verde-oscuro);  /* #1A8C6E */
+    font-weight: 600;
 }
+
+/* Link activo con indicador sutil (opcional) */
+.fi-navbar .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 2px;
+    background: var(--fi-verde-base);
+    border-radius: 2px;
+}
+
+/* Logo en navbar */
+.fi-logo {
+    height: 65px;
+    transition: height 0.3s ease;
+}
+
+.fi-navbar.scrolled .fi-logo {
+    height: 52px;  /* logo más compacto al scrollear */
+}
+
+/* Marca de texto (si usás texto en lugar de logo) */
 .fi-navbar .navbar-brand {
     font-size: 1.1rem;
     line-height: 1.1;
+    color: var(--fi-verde-muy-oscuro);
+    font-weight: 600;
 }
 
 .fi-navbar .navbar-brand span {
     font-size: 0.75rem;
-    color: var(--fi-gris);
+    color: var(--fi-verde-oscuro);
+    font-weight: normal;
 }
 
-.fi-navbar .nav-link {
-    font-weight: 500;
-    color: #333333;
-    margin-left: 0.5rem;
-}
-
-.fi-navbar .nav-link:hover {
-    color: var(--fi-verde);
-}
-.fi-logo {
-    height: 65px;
+/* Responsive: menú mobile */
+@media (max-width: 991px) {
+    .fi-navbar {
+        background-color: rgba(255, 255, 255, 0.98);
+    }
+    
+    .fi-navbar .navbar-nav {
+        align-items: flex-start;
+        padding-top: 0.5rem;
+    }
+    
+    .fi-navbar .nav-link {
+        padding: 0.6rem 0;
+    }
+    
+    .fi-navbar .nav-link.active::after {
+        display: none;  /* sacamos el indicador en mobile */
+    }
 }
 
 @media (max-width: 576px) {
     .fi-logo {
         height: 42px;
     }
+    
+    .fi-navbar.scrolled .fi-logo {
+        height: 38px;
+    }
 }
 
+/* Botón webmail (navbar) */
 .btn-webmail {
-    background: var(--fi-verde);
+    background: var(--fi-verde-base);
     color: #ffffff !important;
     border-radius: 20px;
     padding: 6px 16px;
@@ -189,7 +236,6 @@ html, body {
     gap: 6px;
     transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
-
 
 .btn-webmail:hover {
     background: var(--fi-verde-oscuro);
@@ -294,11 +340,11 @@ main {
     inset: 0;
     background: linear-gradient(
         to right,
-        rgba(11, 79, 74, 0.75) 0%,
-        rgba(11, 79, 74, 0.45) 35%,
-        rgba(11, 79, 74, 0.20) 55%,
-        rgba(11, 79, 74, 0.05) 70%,
-        rgba(11, 79, 74, 0) 100%
+        rgba(13, 74, 58, 0.85) 0%,      /* var(--fi-verde-muy-oscuro) en RGB */
+        rgba(13, 74, 58, 0.55) 35%,
+        rgba(26, 140, 110, 0.25) 55%,   /* var(--fi-verde-oscuro) más suave */
+        rgba(51, 204, 153, 0.08) 70%,   /* var(--fi-verde-base) muy sutil */
+        rgba(51, 204, 153, 0) 100%
     );
     z-index: 1;
 }
@@ -337,7 +383,7 @@ main {
     margin-bottom: 22px;
 }
 
-/* Botón institucional */
+/* Botón del hero */
 .fi-btn-hero {
     background: transparent;
     color: #ffffff;
@@ -352,7 +398,7 @@ main {
 
 .fi-btn-hero:hover {
     background: #ffffff;
-    color: var(--fi-verde-oscuro);
+    color: var(--fi-verde-muy-oscuro);
 }
 
 /* Controles del carousel */
@@ -397,10 +443,6 @@ main {
     }
 }
 
-/* === SECCIÓN DE ACCESOS RÁPIDOS === */
-/*=====================================*/
-/* -------------------------------------------------------------
-   4. TARJETAS HOME
 /* ================================================================
    SECCIÓN DE ACCESOS RÁPIDOS - TARJETAS HOME
    ================================================================ */
@@ -426,8 +468,8 @@ main {
 
 /* Título de la tarjeta */
 .custom-card h5 {
-    position: relative;        /* para la flecha absoluta */
-    padding-right: 24px;       /* espacio para la flecha */
+    position: relative;
+    padding-right: 24px;
     color: #ffffff;
     font-weight: 600;
     font-size: 1.05rem;
@@ -437,7 +479,7 @@ main {
 }
 
 .custom-card:hover h5 {
-    color: #e8fffb;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Logo / icono circular */
@@ -491,11 +533,11 @@ main {
     text-underline-offset: 4px;
 }
 
-/* Flecha sutil (corregida) */
+/* Flecha sutil */
 .card-arrow {
     position: absolute;
     right: 8px;
-    bottom: 0;               /* alineada con la última línea */
+    bottom: 0;
     font-size: 1.2em;
     line-height: 1;
     opacity: 0;
@@ -508,18 +550,27 @@ main {
 }
 
 /* Gradientes institucionales */
-.custom-grad-1 { background: linear-gradient(135deg, #2bb673, #009a4e); }
-.custom-grad-2 { background: linear-gradient(135deg, #00a3c6, #007b9a); }
-.custom-grad-3 { background: linear-gradient(135deg, #006a78, #004f5b); }
-.custom-grad-4 { background: linear-gradient(135deg, #2bb673, #009a4e); }
-.custom-grad-5 { background: linear-gradient(135deg, #00a3c6, #007b9a); }
-.custom-grad-6 { background: linear-gradient(135deg, #006a78, #004f5b); }
+.custom-grad-1,
+.custom-grad-4 {
+    background: linear-gradient(135deg, #2BBF8A, #1A8C6E);
+}
 
-/* Bordes redondeados laterales para primera y última tarjeta */
+.custom-grad-2,
+.custom-grad-5 {
+    background: linear-gradient(135deg, #33CC99, #1A8C6E);
+}
+
+.custom-grad-3,
+.custom-grad-6 {
+    background: linear-gradient(135deg, #1A8C6E, #0D4A3A);
+}
+
+/* Bordes redondeados laterales */
 .custom-grad-1 {
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
 }
+
 .custom-grad-6 {
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
@@ -532,7 +583,7 @@ main {
     }
 }
 
-/* Pseudo‑elementos decorativos de fondo (iconos grandes) */
+/* Pseudo-elementos decorativos de fondo (iconos grandes) */
 .custom-grad-1::before,
 .custom-grad-2::before,
 .custom-grad-3::before,
@@ -558,22 +609,17 @@ main {
 .custom-grad-5::before { content: "\F3D8"; } /* folder open */
 .custom-grad-6::before { content: "\F456"; } /* laptop */
 
-/* Botón interno (se mantiene por compatibilidad, aunque ya usás tarjeta cliqueable) */
-.btn-tarjeta {
-    background: transparent !important;
-    color: #ffffff;
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-weight: 500;
-    text-decoration: none;
-    border: 2px solid #ffffff;
-    transition: background-color 0.25s ease, color 0.25s ease;
+/* Overlay sutil para mejorar contraste en tarjetas claras */
+.custom-grad-1::after,
+.custom-grad-4::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    border-radius: inherit;
 }
 
-.btn.btn-tarjeta:hover {
-    background-color: #ffffff !important;
-    color: #006a78 !important;
-}
 /* -------------------------------------------------------------
    7. ACTUALIDAD (NOTICIAS + NOVEDADES)
 ------------------------------------------------------------- */
@@ -581,14 +627,16 @@ main {
     background-color: #f8f9fa;
 }
 
+/* Enlaces institucionales generales */
 .fi-link {
-    color: var(--fi-verde-oscuro);      /* verde institucional */
+    color: var(--fi-verde-oscuro);
     font-weight: 500;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
-/* Enlaces institucionales */
 
 .fi-link:hover {
+    color: var(--fi-verde-base);
     text-decoration: underline;
 }
 /* Miniaturas */
@@ -634,16 +682,17 @@ main {
     line-height: 1.7;
     color: #444;
 }
+/* Botón institucional (sección "La Facultad") */
 .btn-institucional {
     background: transparent;
-    border: 2px solid #006d74;
-    color: #006d74;
-    align-self: flex-start;
+    border: 2px solid var(--fi-verde-base);
+    color: var(--fi-verde-base);
+    transition: all 0.25s ease;
 }
 
 .btn-institucional:hover {
-    background: #006d74;
-    color: #fff;
+    background: var(--fi-verde-base);
+    color: #ffffff;
 }
 
 .institucional-img-wrapper {
@@ -674,62 +723,119 @@ main {
 /* -------------------------------------------------------------
    6. MÉTRICAS
 ------------------------------------------------------------- */
+/* ================================================================
+   SECCIÓN DE MÉTRICAS INSTITUCIONAL
+   ================================================================ */
+
+.fi-metricas {
+    background: linear-gradient(135deg, #0a2a25, #0d1f1c);
+    /* Gradiente basado en el verde muy oscuro institucional */
+    color: #ffffff;
+    padding: 3rem 0;
+}
+
 .metrica-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
 }
-.fi-metricas {
-    background: #0d0d0d;
-    color: #ffffff;
-}
+
 .metrica-icon {
-    font-size: 2rem;
-    color: var(--fi-verde);
-    margin-bottom: 4px;
+    font-size: 2.2rem;
+    color: var(--fi-verde-base);  /* #33CC99 - institucional puro */
+    margin-bottom: 8px;
+    transition: transform 0.25s ease;
+}
+
+.metrica-item:hover .metrica-icon {
+    transform: translateY(-4px);  /* efecto sutil al hover */
 }
 
 .metrica-num {
     font-size: 3rem;
-    font-weight: 700;
-    color: var(--fi-verde);
-    margin-bottom: 5px;
-}
-.metricas-text {
-    font-size: 1rem;
-    color: #e5e5e5;
-    margin-bottom: 1.2rem;
+    font-weight: 800;
+    color: var(--fi-verde-base);  /* #33CC99 */
+    line-height: 1.1;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
 }
 
+.metricas-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    /* max-width: 400px; */
+    /* text-align: center; */
+    /* line-height: 1.4; */
+    margin-bottom: 1.0rem;
+}
+
+/* Botón de métricas */
 .btn-metrica {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 24px;
-    background: var(--fi-verde);
-    color: #0d0d0d;
-    font-weight: 600;
+    gap: 16px;
+    padding: 10px 24px;
+    border-radius: 40px;
+    background: var(--fi-verde-base);  /* #33CC99 */
+    color: #0a2a25;  /* texto oscuro que combina con el fondo */
+    font-weight: 700;
     text-decoration: none;
     transition: all 0.25s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-metrica:hover {
-    background: #00a85a;
-    transform: translateX(4px);
+    background: var(--fi-verde-oscuro);  /* #1A8C6E - derivado oscuro */
+    color: #ffffff;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+.btn-metrica i {
+    transition: transform 0.2s ease;
+}
+
+.btn-metrica:hover i {
+    transform: translateX(3px);
+}
+
+/* Disposición responsive */
+/* @media (max-width: 768px) {
+    .fi-metricas .row {
+        gap: 2rem;
+    }
+    
+    .metrica-num {
+        font-size: 2.5rem;
+    }
+    
+    .btn-metrica {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .metrica-num {
+        font-size: 2rem;
+    }
+    
+    .metrica-icon {
+        font-size: 1.8rem;
+    }
+} */
 
 /* ===============================
    FOOTER INSTITUCIONAL FI
 ================================ */
 
 .fi-footer {
-    background: linear-gradient(180deg, #0b4f4a, #083d39);    
+    background: linear-gradient(180deg, var(--fi-verde-muy-oscuro), var(--fi-verde-extremo));
     color: #ffffff;
     font-size: 0.9rem;
 }
-
 /* LOGO */
 .fi-footer-logo {
     max-width: 180px;
@@ -766,7 +872,7 @@ main {
 }
 
 .fi-footer-list i {
-    color: #7dd3c7;
+    color: var(--fi-verde-claro);  
     font-size: 1rem;
     margin-top: 2px;
 }

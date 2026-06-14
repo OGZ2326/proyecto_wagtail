@@ -1,0 +1,833 @@
+/* ===============================
+este es un back_up de style.css
+   VARIABLES INSTITUCIONALES R51 G204 B153
+--color-1: rgb(51 204 76);#33CC4C
+--color-2: rgb(51 204 153);#33CC99 
+--color-3: rgb(51 178 204);#33B2CC
+================================ */
+:root {
+    --fi-verde-oscuro: #0b4f4a;
+    /* --fi-verde: #0f766e; */
+    --fi-verde:#33CC99;
+    --fi-gris: #6c757d;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+/* ===============================
+   TOPBAR 
+================================ */
+.fi-topbar {
+    background-color: var(--fi-verde-oscuro);
+    font-size: 0.85rem;
+}
+.fi-topbar {
+    position: relative;
+    z-index: 1050;
+}
+.fi-topbar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.fi-topbar a:hover {
+    text-decoration: underline;
+}
+
+.fi-contacto-info {
+    position: absolute;
+    top: 110%;
+    left: 0;
+
+    background: #ffffff;
+    color: var(--fi-verde-oscuro);
+    padding: 10px 14px;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+
+    max-width: 260px;
+
+    /* Animación */
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    z-index: 2000;
+}
+
+.fi-contacto-info i {
+    color: var(--fi-verde);
+    font-size: 1.1rem;
+    margin-top: 2px;
+}
+
+.fi-contacto-info.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (max-width: 576px) {
+    .fi-contacto-info {
+        position: fixed;
+        top: 48px;                 /* justo debajo de la topbar */
+        left: 50%;
+
+        transform: translate(-50%, -6px);
+
+        width: calc(100vw - 40px);
+        max-width: 300px;
+
+        z-index: 3000;
+    }
+
+    .fi-contacto-info.show {
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+
+.fi-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+
+    background-color: rgba(255, 255, 255, 0.55); /* 👈 transparencia real */
+    backdrop-filter: blur(10px);                  /* 👈 efecto vidrio */
+    /* -webkit-backdrop-filter: blur(6px);  */
+    transition:
+        box-shadow 0.3s ease,
+        background-color 0.3s ease,
+        backdrop-filter 0.3s ease,
+        padding 0.3s ease;
+
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+     
+}
+
+
+.fi-navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.55); /* casi sólida */
+    backdrop-filter: blur(4px);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.fi-navbar {
+    border-bottom: 1px solid #e5e5e5;
+}
+.fi-navbar .navbar-nav {
+    align-items: center;
+}
+@media (max-width: 991px) {
+    .fi-navbar .navbar-nav {
+        align-items: flex-start;
+    }
+}
+.fi-navbar .navbar-brand {
+    font-size: 1.1rem;
+    line-height: 1.1;
+}
+
+.fi-navbar .navbar-brand span {
+    font-size: 0.75rem;
+    color: var(--fi-gris);
+}
+
+.fi-navbar .nav-link {
+    font-weight: 500;
+    color: #333333;
+    margin-left: 0.5rem;
+}
+
+.fi-navbar .nav-link:hover {
+    color: var(--fi-verde);
+}
+.fi-logo {
+    height: 65px;
+}
+
+@media (max-width: 576px) {
+    .fi-logo {
+        height: 42px;
+    }
+}
+
+.btn-webmail {
+    background: var(--fi-verde);
+    color: #ffffff !important;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+.btn-webmail:hover {
+    background: var(--fi-verde-oscuro);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+@media (max-width: 991px) {
+    .btn-webmail {
+        display: inline-flex;
+        width: fit-content;
+        margin-top: .5rem;
+
+        font-size: 0.8rem;
+        padding: 6px 14px;
+    }
+}
+
+.fi-navbar.scrolled .btn-webmail {
+    box-shadow: none;
+}
+
+/* ===============================
+   DROPDOWN INSTITUCIONAL
+================================ */
+
+.fi-dropdown {
+    display: block;                 /* 🔑 evita el display:none de Bootstrap */
+    opacity: 0;                     /* invisible */
+    visibility: hidden;             /* no clickeable */
+    transform: translateY(-6px);    /* un poco más arriba */
+    
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+
+    border-radius: 6px;
+    border: none;
+    padding: 0.4rem 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    min-width: 260px;
+}
+
+
+.fi-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.fi-dropdown .dropdown-item {
+    font-size: 0.9rem;
+    padding: 0.55rem 1.2rem;
+    color: #333;
+    transition: background-color .2s ease, padding-left .2s ease;
+}
+
+.fi-dropdown .dropdown-item:hover {
+    background-color: #f1f7f6;
+    color: var(--fi-verde-oscuro);
+    padding-left: 1.4rem;
+}
+.fi-dropdown .dropdown-divider {
+    margin: 0.35rem 0;
+    border-top: 1px solid #e2e8e6;
+}
+
+/* ===============================
+   CONTENIDO
+================================ */
+main {
+    min-height: 60vh;
+}
+
+/* ===============================
+   HERO 
+================================ */
+
+.fi-hero {
+    position: relative;
+    margin-top: -2px;
+}
+
+/* Slide */
+.fi-hero-slide {
+    min-height: 520px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Overlay institucional */
+.fi-hero-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(11, 79, 74, 0.75) 0%,
+        rgba(11, 79, 74, 0.45) 35%,
+        rgba(11, 79, 74, 0.20) 55%,
+        rgba(11, 79, 74, 0.05) 70%,
+        rgba(11, 79, 74, 0) 100%
+    );
+    z-index: 1;
+}
+
+/* Contenido */
+.fi-hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 110px 10%;
+    z-index: 2;
+}
+
+/* Texto */
+.fi-hero-text {
+    max-width: 640px;
+}
+
+.fi-hero-text h2 {
+    color: #ffffff;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+}
+
+.fi-hero-text h2 span {
+    font-weight: 700;
+    opacity: 0.95;
+}
+
+.fi-hero-text p {
+    color: #f1f1f1;
+    font-size: 1.1rem;
+    margin-bottom: 22px;
+}
+
+/* Botón institucional */
+.fi-btn-hero {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 8px 26px;
+    border-radius: 22px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.fi-btn-hero:hover {
+    background: #ffffff;
+    color: var(--fi-verde-oscuro);
+}
+
+/* Controles del carousel */
+.carousel-control-prev,
+.carousel-control-next {
+    z-index: 3;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 991px) {
+    .fi-hero-slide {
+        min-height: 440px;
+    }
+
+    .fi-hero-content {
+        padding: 0 40px 70px;
+    }
+
+    .fi-hero-text h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .fi-hero-slide {
+        min-height: 360px;
+    }
+
+    .fi-hero-content {
+        padding: 0 20px 40px;
+    }
+
+    .fi-hero-text h2 {
+        font-size: 1.55rem;
+    }
+
+    .fi-hero-text p {
+        font-size: 0.95rem;
+    }
+}
+
+/* === SECCIÓN DE ACCESOS RÁPIDOS === */
+/*=====================================*/
+/* -------------------------------------------------------------
+   4. TARJETAS HOME
+/* ================================================================
+   SECCIÓN DE ACCESOS RÁPIDOS - TARJETAS HOME
+   ================================================================ */
+
+#cards-section {
+    margin-top: -65px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Base de la tarjeta */
+.custom-card {
+    position: relative;
+    background: white;
+    padding: 30px 18px 26px;
+    text-align: center;
+    height: 100%;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Título de la tarjeta */
+.custom-card h5 {
+    position: relative;        /* para la flecha absoluta */
+    padding-right: 24px;       /* espacio para la flecha */
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin: 12px 0 18px;
+    transition: color 0.25s ease;
+}
+
+.custom-card:hover h5 {
+    color: #e8fffb;
+}
+
+/* Logo / icono circular */
+.card-logo {
+    width: 85px;
+    height: 85px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+}
+
+.card-logo i {
+    font-size: 42px;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.custom-card:hover .card-logo {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+}
+
+.custom-card:hover .card-logo i {
+    transform: scale(1.1);
+}
+
+/* Enlace envolvente (toda la tarjeta cliqueable) */
+.card-link-wrapper {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-link-wrapper:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.card-link-wrapper:hover .custom-card {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-link-wrapper:hover h5 {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+/* Flecha sutil (corregida) */
+.card-arrow {
+    position: absolute;
+    right: 8px;
+    bottom: 0;               /* alineada con la última línea */
+    font-size: 1.2em;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-link-wrapper:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* Gradientes institucionales */
+.custom-grad-1 { background: linear-gradient(135deg, #2bb673, #009a4e); }
+.custom-grad-2 { background: linear-gradient(135deg, #00a3c6, #007b9a); }
+.custom-grad-3 { background: linear-gradient(135deg, #006a78, #004f5b); }
+.custom-grad-4 { background: linear-gradient(135deg, #2bb673, #009a4e); }
+.custom-grad-5 { background: linear-gradient(135deg, #00a3c6, #007b9a); }
+.custom-grad-6 { background: linear-gradient(135deg, #006a78, #004f5b); }
+
+/* Bordes redondeados laterales para primera y última tarjeta */
+.custom-grad-1 {
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+.custom-grad-6 {
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+@media (max-width: 991px) {
+    .custom-grad-1,
+    .custom-grad-6 {
+        border-radius: 0;
+    }
+}
+
+/* Pseudo‑elementos decorativos de fondo (iconos grandes) */
+.custom-grad-1::before,
+.custom-grad-2::before,
+.custom-grad-3::before,
+.custom-grad-4::before,
+.custom-grad-5::before,
+.custom-grad-6::before {
+    font-family: "bootstrap-icons";
+    font-style: normal;
+    font-weight: normal;
+    position: absolute;
+    font-size: 180px;
+    color: rgba(255,255,255,0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.custom-grad-1::before { content: "\F307"; } /* door */
+.custom-grad-2::before { content: "\F6FE"; } /* mortarboard */
+.custom-grad-3::before { content: "\F1CC"; } /* briefcase */
+.custom-grad-4::before { content: "\F4D0"; } /* people */
+.custom-grad-5::before { content: "\F3D8"; } /* folder open */
+.custom-grad-6::before { content: "\F456"; } /* laptop */
+
+/* Botón interno (se mantiene por compatibilidad, aunque ya usás tarjeta cliqueable) */
+.btn-tarjeta {
+    background: transparent !important;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.btn.btn-tarjeta:hover {
+    background-color: #ffffff !important;
+    color: #006a78 !important;
+}
+/* -------------------------------------------------------------
+   7. ACTUALIDAD (NOTICIAS + NOVEDADES)
+------------------------------------------------------------- */
+.fi-actualidad {
+    background-color: #f8f9fa;
+}
+
+.fi-link {
+    color: var(--fi-verde-oscuro);      /* verde institucional */
+    font-weight: 500;
+    text-decoration: none;
+}
+/* Enlaces institucionales */
+
+.fi-link:hover {
+    text-decoration: underline;
+}
+/* Miniaturas */
+.fi-noticia-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+/* Imagen destacada */
+.fi-noticia-detalle-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+}
+
+
+.fi-noticia-img {
+    width: 50%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+
+
+
+/* -------------------------------------------------------------
+   5. SECCIÓN INSTITUCIONAL
+------------------------------------------------------------- */
+
+#institucional { background: #f8f9fa; }
+
+.institucional-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #003c44;
+}
+.institucional-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+}
+.btn-institucional {
+    background: transparent;
+    border: 2px solid #006d74;
+    color: #006d74;
+    align-self: flex-start;
+}
+
+.btn-institucional:hover {
+    background: #006d74;
+    color: #fff;
+}
+
+.institucional-img-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.institucional-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media (max-width: 991px) {
+    .institucional-row {
+        min-height: auto;
+    }
+
+    .institucional-img-wrapper {
+        height: 260px;
+        margin-top: 20px;
+    }
+}
+
+
+/* -------------------------------------------------------------
+   6. MÉTRICAS
+------------------------------------------------------------- */
+.metrica-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.fi-metricas {
+    background: #0d0d0d;
+    color: #ffffff;
+}
+.metrica-icon {
+    font-size: 2rem;
+    color: var(--fi-verde);
+    margin-bottom: 4px;
+}
+
+.metrica-num {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--fi-verde);
+    margin-bottom: 5px;
+}
+.metricas-text {
+    font-size: 1rem;
+    color: #e5e5e5;
+    margin-bottom: 1.2rem;
+}
+
+.btn-metrica {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 24px;
+    background: var(--fi-verde);
+    color: #0d0d0d;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-metrica:hover {
+    background: #00a85a;
+    transform: translateX(4px);
+}
+
+/* ===============================
+   FOOTER INSTITUCIONAL FI
+================================ */
+
+.fi-footer {
+    background: linear-gradient(180deg, #0b4f4a, #083d39);    
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+/* LOGO */
+.fi-footer-logo {
+    max-width: 180px;
+    height: auto;
+}
+
+/* TEXTO */
+.fi-footer-text {
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* TITULOS */
+.fi-footer-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+/* LISTA */
+.fi-footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fi-footer-list li {
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: start;
+    gap: 8px;
+}
+
+.fi-footer-list i {
+    color: #7dd3c7;
+    font-size: 1rem;
+    margin-top: 2px;
+}
+
+/* REDES */
+.fi-footer-redes a {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin-right: 14px;
+    transition: opacity 0.2s ease;
+}
+
+.fi-footer-redes a:hover {
+    opacity: 0.7;
+}
+
+/* BANDA INFERIOR */
+.fi-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 12px 0;
+    margin-top: 0 rem;
+}
+
+/* ===============================
+   SUBMENÚS ANIDADOS (Dropdowns dentro de dropdowns)
+   Resuelve el problema de opacidad/visibilidad
+================================ */
+
+/* Estilo base para el contenedor del submenú */
+/* Posiciona el submenú a la derecha y lo hace visible al hover */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;          /* desplaza a la derecha */
+    right: auto;
+    margin-top: 0;
+    margin-left: 0.125rem;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    border: none;
+    padding: 0.4rem 0;
+    min-width: 220px;
+
+    /* Asegura que se muestre al hacer hover */
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+

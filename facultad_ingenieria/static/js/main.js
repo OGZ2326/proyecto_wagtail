@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+   
     // CONTACTO PANEL
     const btn = document.getElementById("btn-contactanos");
     const info = document.getElementById("contacto-info");
